@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NdkSample</string>
+    <string name="init_value">0</string>
+</resources>
