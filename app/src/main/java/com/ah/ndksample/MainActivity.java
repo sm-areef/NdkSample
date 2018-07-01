@@ -2,7 +2,8 @@ package com.ah.ndksample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,24 +13,22 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
-    private TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Example of a call to a native method
-        textView = (TextView) findViewById(R.id.sample_text);
+        final TextView textView = (TextView) findViewById(R.id.sample_text);
         textView.setText(String.valueOf(countFromJNI()));
-    }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            textView.setText(String.valueOf(countFromJNI()));
-
-        }
-        return true;
+        Button button = (Button) findViewById(R.id.count);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText(String.valueOf(countFromJNI()));
+            }
+        });
     }
 
     /**
